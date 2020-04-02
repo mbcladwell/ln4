@@ -2,15 +2,48 @@
   #:export (get-rand-file-name
 	    ciccio
 	    header
+	    footer
+	    prep-project-rows
+	    prep-ps-rows
+	    prep-plt-rows
+	    prep-ar-rows
+	    prep-lyt-rows
+	    get-plates-for-psid
+	    get-assay-runs-for-psid
+	    get-all-layouts
+	    get-layout-for-id
+	    prep-lyt-for-r
+	    get-layout-table-for-r
+	    get-data-for-layout
+	    get-format-for-layout-id
 	    get-c1
+	    get-c2
+	    get-c3
+	    get-c4
+	    get-c5
+	    get-c6
+	    get-c7
+	    get-c8
+	    get-c9
+	    get-c10
+	    get-c11
+	    get-c12
+	    get-c13
+	    get-c14
+	    get-c15
+	    get-c16
+	    get-c17
 	    ))
+
+(use-modules (artanis artanis)(artanis utils) (ice-9 local-eval) (srfi srfi-1)
+             (artanis irregex)(dbi dbi) (ice-9 textual-ports))
 
 ;; artanis config: /etc/artanis/artanis.conf
 ;; pgbouncer -d ./syncd/pgbouncer.ini
 ;; psql -U ln_admin -p 6432 -d pgbouncer -h 127.0.0.1
 ;; psql -U ln_admin -p 6432 -d lndb -h 127.0.0.1
 ;; guix environment --manifest=./environment.scm --pure
-;; guile -s ./lnserver3.scm
+;; guile -s ./lnserver.scm
 
 ;; https://github.com/UMCUGenetics/guix-documentation/blob/master/for-bioinformaticians/guix-for-bioinformaticians.md
 
@@ -77,18 +110,6 @@
 
 
 
-(get "/getallprojects" #:raw-sql  "select id, project_sys_name, project_name, descr from project" 
-     (lambda (rc)
-       (let* ((current-toplevel  (getcwd))	 
-	      (page-title "<table><caption><h1>All Projects</h1></caption><tr><th>Project</th><th>Name</th><th>Description</th></tr>")
-	      (mtable  (:raw-sql rc 'all))
-	      (body (string-append header page-title (string-concatenate (prep-project-rows mtable)) footer)))
-;;	 (tpl->response "project.tpl" (the-environment))
-	 (tpl->response "project.tpl" (the-environment) )
-	 )
-       ))
-
-
 (define (prep-ps-rows a)
   (fold (lambda (x prev)
           (let (
@@ -99,22 +120,6 @@
 		  prev)))
         '() a))
 
-(get "/getpsforprj?" #:conn #t
-     (lambda (rc)
-       (let* ((ret #f)
-	      (holder '())
-	      (id  (get-from-qstr rc "id"))
-	      (page-title (string-append "<table><caption><h1>Plate Sets for PRJ-"id "</h1></caption><tr><th>Project</th><th>Name</th><th>Description</th></tr>"))
-	      (dummy (dbi-query ciccio (string-append "select id, plate_set_sys_name, plate_set_name, descr from plate_set where project_id =" id )))
-	      (ret (dbi-get_row ciccio))
-	      (dummy2 (while (not (equal? ret #f))     
-			(set! holder (cons ret holder))		   
-			(set! ret  (dbi-get_row ciccio))))
-	     (body (string-append header page-title (string-concatenate  (prep-ps-rows holder)) footer)))      
-	     
-		 (tpl->response "plate-set.tpl" (the-environment))
-
-	 )))
 
 
 (define (prep-plt-rows a)
@@ -169,16 +174,6 @@
 
 
 
-(get "/getpltforps?" #:conn #t
-     (lambda (rc)
-       (let* ((id  (get-from-qstr rc "id"))
-	      (plates (get-plates-for-psid id))
-	      (assay-runs (get-assay-runs-for-psid id))
-	      (body (string-append header plates assay-runs footer)))      
-	     
-		 (tpl->response "plate.tpl" (the-environment))
-
-	 )))
 
 (define (prep-lyt-rows a)
   (fold (lambda (x prev)
@@ -218,12 +213,6 @@
     (string-append table-header body "</table>")))
 
 
-(get "/getlayouts?" #:conn #t
-     (lambda (rc)
-       (let* ((help-link "localhost:4000/software/layouts")
-	      (help-text "Help with Layouts")
-	      (body (get-all-layouts)))
-		 (tpl->response "layouts.tpl" (the-environment)))))
 
 
 
@@ -240,15 +229,50 @@
 	(body (string-concatenate (prep-lyt-rows holder))))
     (string-append table-header body "</table>")))
 
+(define (prep-lyt-for-r a)
+  (fold (lambda (x prev)
+          (let* ((format (get-c1 x))	
+		 (well (get-c2 x))
+		 (type (get-c3 x))
+		 (row (result-ref x "row"))
+		 (row-num (get-c5 x))
+		 (col (result-ref x "col")))
+            (cons (string-append  format "\t" well "\t" type "\t" row "\t" row-num "\t" col "\n")
+		  prev)))
+        '() a))
+
+
+(define (get-layout-table-for-r id)
+  (let* ((ret #f)
+	(holder '())
+	(table-header (string-append "format\twell\ttype\trow\trow.num\tcol\n"))
+	(dummy (dbi-query ciccio  (string-append "select plate_format_id, by_col, well_type_id,row, row_num, col from plate_layout_name, plate_layout, well_numbers where plate_layout.well_by_col=well_numbers.by_col and plate_layout.plate_layout_name_id = plate_layout_name.id and well_numbers.plate_format=plate_layout_name.plate_format_id AND plate_layout.plate_layout_name_id =" id)))
+	(ret (dbi-get_row ciccio))
+	(dummy2 (while (not (equal? ret #f))     
+		  (set! holder (cons ret holder))		   
+		  (set! ret  (dbi-get_row ciccio))
+		  (display ret)
+		  ))
+	(body (string-concatenate (prep-lyt-for-r holder))))
+    (string-append table-header body )))
+
+
+(define (get-data-for-layout id data-file-name)
+  (let* ((data-file data-file-name)
+	 (p  (open-output-file data-file)))
+    (put-string p (get-layout-table-for-r id) )
+    (force-output p)
+    ))
+
+
+(define (get-format-for-layout-id id)
+  (let* ((ret #f)
+	(dummy (dbi-query ciccio  (string-append "select  plate_format_id from plate_layout_name where id="  id)))
+	(ret (dbi-get_row ciccio)))
+    (number->string (cdar ret))))
 
 
 
 
 
-(get "/getlayoutforid?" #:conn #t
-     (lambda (rc)
-       (let* ((help-link "localhost:4000/software/layouts")
-	      (help-text "Help with Layouts")
-	      (id  (get-from-qstr rc "id"))
-	      (body (get-layout-for-id id)))
-		 (tpl->response "layouts.tpl" (the-environment)))))
+

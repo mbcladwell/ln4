@@ -1,5 +1,5 @@
 (define-module (lnserver)
-  #:use-module (lnserver methods))
+  #:use-module (methods))
 
 
 (use-modules (artanis artanis)(artanis utils) (ice-9 local-eval) (srfi srfi-1)
