@@ -1,5 +1,5 @@
 AC_INIT([lnserver], [0.1])
-AC_CONFIG_SRCDIR([lnserver.scm])
+AC_CONFIG_SRCDIR([lnserver])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])

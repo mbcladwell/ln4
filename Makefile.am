@@ -2,7 +2,7 @@ include guile.am
 
 SOURCES =               \
   lnserver/methods.scm    \
-  lnserver.scm
+  lnserver/lnserver.scm
 
 EXTRA_DIST =            \
   README                \
