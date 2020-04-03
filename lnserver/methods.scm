@@ -1,7 +1,8 @@
 (define-module (lnserver methods)
   #:export (get-rand-file-name
 	    ciccio
-	    header
+	    get-header2
+	    help-url
 	    footer
 	    prep-project-rows
 	    prep-ps-rows
@@ -47,6 +48,12 @@
 
 ;; https://github.com/UMCUGenetics/guix-documentation/blob/master/for-bioinformaticians/guix-for-bioinformaticians.md
 
+(define file (open-input-file "/home/mbc/projects/ln4/limsnucleus.properties"))
+(display (read-line file))
+
+
+(define help-url "www.labsolns.com/software/")
+
 (define (get-rand-file-name pre suff)
   (string-append "./tmp/" pre "-" (number->string (random 10000000000000000000000)) "." suff))
 
@@ -54,7 +61,7 @@
 (define ciccio (dbi-open "postgresql" "ln_admin:welcome:lndb:socket:192.168.1.11:5432"))
 
 
-(define header "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">
+(define (get-header2 help-topic) (string-append "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">
 <html>
   <head>
  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
@@ -68,12 +75,13 @@
 <img src=\"img/las-nav-bar.png\" alt=\"Laboratory Automation Solutions\" style=\"width:120px;height:180px;\">
   <a href=\"\">Projects</a>
   <a href=\"\">Layouts</a>
-  <a href=\" <%= help-link  %>   \">HELP</a>
+  <a href=\"gethelp?topic="  help-topic  "\">HELP</a>
   <a href=\"http://labsolns.com/software/toc\">TOC</a>
   <a href=\"mailto:info@labsolns.com\">Contact</a>
 </div>
 <div class=\"main\">
-")
+"))
+
 
 
 (define footer "</div></html>")

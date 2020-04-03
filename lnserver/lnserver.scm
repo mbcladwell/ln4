@@ -3,7 +3,7 @@
 
 
 (use-modules (artanis artanis)(artanis utils) (ice-9 local-eval) (srfi srfi-1)
-             (artanis irregex)(dbi dbi) (ice-9 textual-ports))
+             (artanis irregex)(dbi dbi) (ice-9 textual-ports)(web uri))
 (init-server)
 
 ;;(load "./methods.scm")
@@ -16,7 +16,7 @@
 	      (page-title "<table><caption><h1>All Projects</h1></caption><tr><th>Project</th><th>Name</th><th>Description</th></tr>")
 	      (mtable  (:raw-sql rc 'all))
 	      (top-level ".")
-	      (body (string-append header page-title (string-concatenate (prep-project-rows mtable)) footer)))
+	      (body (string-append (get-header2 "project") page-title (string-concatenate (prep-project-rows mtable)) footer)))
 ;;	 (tpl->response "project.tpl" (the-environment))
 	 (tpl->response "lnserver/tpl/project.tpl" (the-environment) )
 	 )
@@ -62,6 +62,7 @@
 		 (tpl->response "lnserver/tpl/layouts.tpl" (the-environment)))))
 
 
+
 ;; prepare the tab delimitted file for graphing
 (get "/getlayoutforid?" #:conn #t
      (lambda (rc)
@@ -85,6 +86,16 @@
 	      (dummy2 (system (string-append "Rscript --vanilla ./rscripts/plot-layout.R " infile " " outfile " " format))))
 		 (tpl->response "lnserver/tpl/individual-layouts.tpl" (the-environment)))))
 
+
+(get "/gethelp?" #:conn #t
+     (lambda (rc)
+       (let* ((topic  (get-from-qstr rc "topic")))
+	   	 (redirect-to rc (string->uri (string-append help-url topic)) ))))
+
+;; (get "/gethelp?" #:conn #t
+;;      (lambda (rc)
+;;        (let* ((topic  (get-from-qstr rc "topic")))
+;; 	   	 (redirect-to rc (string->uri (string-append "/lnserver/public/" topic)) ))))
 
 
 (run #:use-db? #t #:dbd 'postgresql #:db-username "ln_admin" 
