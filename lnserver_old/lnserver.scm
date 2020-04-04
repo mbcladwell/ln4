@@ -16,7 +16,7 @@
 	      (page-title "<table><caption><h1>All Projects</h1></caption><tr><th>Project</th><th>Name</th><th>Description</th></tr>")
 	      (mtable  (:raw-sql rc 'all))
 	      (top-level ".")
-	      (body (string-append (get-header2 "project") page-title (string-concatenate (prep-project-rows mtable)) footer)))
+	      (body (string-append (get-ln-header "project") page-title (string-concatenate (prep-project-rows mtable)) footer)))
 ;;	 (tpl->response "project.tpl" (the-environment))
 	 (tpl->response "lnserver/tpl/project.tpl" (the-environment) )
 	 )
@@ -35,7 +35,7 @@
 	      (dummy2 (while (not (equal? ret #f))     
 			(set! holder (cons ret holder))		   
 			(set! ret  (dbi-get_row ciccio))))
-	     (body (string-append header page-title (string-concatenate  (prep-ps-rows holder)) footer)))      
+	     (body (string-append (get-ln-header "plateset") page-title (string-concatenate  (prep-ps-rows holder)) footer)))      
 	     
 		 (tpl->response "lnserver/tpl/plate-set.tpl" (the-environment))
 
@@ -47,7 +47,7 @@
        (let* ((id  (get-from-qstr rc "id"))
 	      (plates (get-plates-for-psid id))
 	      (assay-runs (get-assay-runs-for-psid id))
-	      (body (string-append header plates assay-runs footer)))      
+	      (body (string-append (get-ln-header "plate") plates assay-runs footer)))      
 	     
 		 (tpl->response "lnserver/tpl/plate.tpl" (the-environment))
 
@@ -84,7 +84,7 @@
 	      (body (get-layout-for-id id))
 	      (dummy (get-data-for-layout id infile))
 	      (dummy2 (system (string-append "Rscript --vanilla ./rscripts/plot-layout.R " infile " " outfile " " format))))
-		 (tpl->response "lnserver/tpl/individual-layouts.tpl" (the-environment)))))
+		 (tpl->response  "lnserver/tpl/individual-layouts.tpl" (the-environment)))))
 
 
 (get "/gethelp?" #:conn #t

@@ -1,7 +1,7 @@
 (define-module (lnserver methods)
   #:export (get-rand-file-name
 	    ciccio
-	    get-header2
+	    get-ln-header
 	    help-url
 	    footer
 	    prep-project-rows
@@ -37,7 +37,7 @@
 	    ))
 
 (use-modules (artanis artanis)(artanis utils) (ice-9 local-eval) (srfi srfi-1)
-             (artanis irregex)(dbi dbi) (ice-9 textual-ports))
+             (artanis irregex)(dbi dbi) (ice-9 textual-ports)(ice-9 rdelim))
 
 ;; artanis config: /etc/artanis/artanis.conf
 ;; pgbouncer -d ./syncd/pgbouncer.ini
@@ -61,7 +61,9 @@
 (define ciccio (dbi-open "postgresql" "ln_admin:welcome:lndb:socket:192.168.1.11:5432"))
 
 
-(define (get-header2 help-topic) (string-append "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">
+(define (get-ln-header help-topic)
+;; get-header defined by artanis
+  (string-append "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">
 <html>
   <head>
  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
@@ -72,9 +74,18 @@
     </head>
 <!-- Side navigation -->
 <div class=\"sidenav\">
+<style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
 <img src=\"img/las-nav-bar.png\" alt=\"Laboratory Automation Solutions\" style=\"width:120px;height:180px;\">
-  <a href=\"\">Projects</a>
-  <a href=\"\">Layouts</a>
+<img src=\"img/arrow-left-circle-green-512.png\"  style=\"width:40px;height:40px;\">
+
+  <a href=\"getallprojects\">Projects</a>
+  <a href=\"getlayouts\">Layouts</a>
   <a href=\"gethelp?topic="  help-topic  "\">HELP</a>
   <a href=\"http://labsolns.com/software/toc\">TOC</a>
   <a href=\"mailto:info@labsolns.com\">Contact</a>

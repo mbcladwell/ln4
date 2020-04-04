@@ -1,0 +1,8 @@
+  (get "/sessions/get")
+  (get "/hitlist/getid")
+  (get "/plate/getid")
+  (get "/plateset/getid")
+  (get "/users/get")
+  (get "/assayrun/getid")
+  (get "/layout/getall")
+  (get "/project/getall")
