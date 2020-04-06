@@ -20,7 +20,7 @@ img {
 <img src="../img/arrow-left-circle-green-512.png"  style="width:40px;height:40px;">
 
   <a href="../project/getall">Projects</a>
-  <a href="../layouts/getall">Layouts</a>
+  <a href="../layout/getall">Layouts</a>
   <a href="../gethelp?topic=<%= help-topic %> ">HELP</a>
   <a href="http://labsolns.com/software/toc">TOC</a>
   <a href="mailto:info@labsolns.com">Contact</a>

@@ -1,7 +1,6 @@
-(display "<!-- project#getall view template of lnserver
+(display "<!-- layout#lytbyid view template of lnserver
           Please add your license header here.
           This file is generated automatically by GNU Artanis. -->
-  
 ")(display "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">
 <html>
   <head>
@@ -31,10 +30,10 @@ img {
 </div>
 <div class=\"main\">
 ")(display "
-<table><caption>All Projects</caption><tr><th>Project</th><th>Name</th><th>Description</th></tr>
-")(display  body )(display "
+<table><caption><h1>Plate Layouts for Source LYT-")(display  id )(display "</h1></caption><tr><th>ID</th><th>Name</th><th>Description</th><th>Format</th><th>Sample N</th><th>Target N</th><th>Edge?</th><th>N Controls</th><th>Unk N</th><th>Location</th><th>src/dest
+
+  ")(display  body )(display "
 </table>
-
+<img src=\" ")(display  outfile )(display " \">
 ")(display "</div></html>")(display "
-
 ")

@@ -83,7 +83,7 @@
 	      (format (get-format-for-layout-id id))
 	      (body (get-layout-for-id id))
 	      (dummy (get-data-for-layout id infile))
-	      (dummy2 (system (string-append "Rscript --vanilla ./rscripts/plot-layout.R " infile " " outfile " " format))))
+	      (dummy2 (system (string-append "Rscript --vanilla ../rscripts/plot-layout.R " infile " " outfile " " format))))
 		 (tpl->response  "lnserver/tpl/individual-layouts.tpl" (the-environment)))))
 
 

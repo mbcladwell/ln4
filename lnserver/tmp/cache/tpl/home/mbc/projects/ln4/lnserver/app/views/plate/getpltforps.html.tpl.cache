@@ -1,7 +1,7 @@
-(display "<!-- project#getall view template of lnserver
+(display "<!-- plate#getid view template of lnserver
           Please add your license header here.
           This file is generated automatically by GNU Artanis. -->
-  
+
 ")(display "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">
 <html>
   <head>
@@ -24,17 +24,16 @@ img {
 <img src=\"../img/arrow-left-circle-green-512.png\"  style=\"width:40px;height:40px;\">
 
   <a href=\"../project/getall\">Projects</a>
-  <a href=\"../layout/getall\">Layouts</a>
+  <a href=\"../layouts/getall\">Layouts</a>
   <a href=\"../gethelp?topic=")(display  help-topic )(display " \">HELP</a>
   <a href=\"http://labsolns.com/software/toc\">TOC</a>
   <a href=\"mailto:info@labsolns.com\">Contact</a>
 </div>
 <div class=\"main\">
 ")(display "
-<table><caption>All Projects</caption><tr><th>Project</th><th>Name</th><th>Description</th></tr>
-")(display  body )(display "
+<table><caption><h1>Plates for PS-")(display  id )(display "</h1></caption><tr><th>Plate</th><th>Barcode</th></tr>
+  ")(display  body )(display "
 </table>
 
 ")(display "</div></html>")(display "
-
 ")

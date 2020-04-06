@@ -27,6 +27,6 @@
 		  (set! ret  (dbi-get_row ciccio))))
 	(body (string-concatenate (prep-plt-rows holder))))
 
-    (view-render "getid" (the-environment))
+    (view-render "getpltforps" (the-environment))
   )))
 

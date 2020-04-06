@@ -5,4 +5,5 @@
   (get "/users/get")
   (get "/assayrun/getid")
   (get "/layout/getall")
+  (get "/layout/lytbyid")
   (get "/project/getall")
