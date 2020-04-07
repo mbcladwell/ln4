@@ -51,7 +51,7 @@
 (define help-url "www.labsolns.com/software/")
 
 (define (get-rand-file-name pre suff)
-  (string-append "/tmp/" pre "-" (number->string (random 10000000000000000000000)) "." suff))
+  (string-append "tmp/" pre "-" (number->string (random 10000000000000000000000)) "." suff))
 
 
 (define ciccio (dbi-open "postgresql" "ln_admin:welcome:lndb:socket:192.168.1.11:5432"))
