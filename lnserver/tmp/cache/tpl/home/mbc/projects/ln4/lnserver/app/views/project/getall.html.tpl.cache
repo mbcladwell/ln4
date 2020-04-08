@@ -21,20 +21,27 @@ img {
 }
 </style>
 <img src=\"../img/las-nav-bar.png\" alt=\"Laboratory Automation Solutions\" style=\"width:120px;height:180px;\">
-<img src=\"../img/arrow-left-circle-green-512.png\"  style=\"width:40px;height:40px;\">
 
   <a href=\"../project/getall\">Projects</a>
   <a href=\"../layout/getall\">Layouts</a>
+  <a href=\"../utilities/getall\">Utilities</a>
+
+<a href=\"../session/getall\">Sessions</a>
+<a href=\"../users/getall\">Users</a>
+
   <a href=\"../gethelp?topic=")(display  help-topic )(display " \">HELP</a>
   <a href=\"http://labsolns.com/software/toc\">TOC</a>
   <a href=\"mailto:info@labsolns.com\">Contact</a>
 </div>
 <div class=\"main\">
 ")(display "
-<table><caption>All Projects</caption><tr><th>Project</th><th>Name</th><th>Description</th></tr>
+  <a href=\"localhost:3000/project/add\">Add Project</a>
+  <form action=\"/project/edit?project-name$value\">
+<table><caption><h1>All Projects</h1></caption><tr><th><img src=\"../img/checkmark.png\" height=\"20\" width=\"20\"></th><th>Project</th><th>Name</th><th>Description</th></tr>
 ")(display  body )(display "
 </table>
-
+ <input type=\"submit\" value=\"Edit Project\">
+</form>
 ")(display "</div></html>")(display "
 
 ")

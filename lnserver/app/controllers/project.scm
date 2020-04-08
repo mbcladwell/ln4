@@ -6,7 +6,7 @@
 ;; (use-modules (artanis utils) (ice-9 local-eval) (srfi srfi-1)
    ;;          (artanis irregex)(dbi dbi) (ice-9 textual-ports)(web uri)(ice-9 rdelim)(lnserver sys methods))
 
-(use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys methods))
+(use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys utilities))
 
 (define (prep-project-rows a)
   (fold (lambda (x prev)
@@ -14,7 +14,7 @@
                 (project_sys_name (result-ref x "project_sys_name"))
                 (project_name (result-ref x "project_name"))
 		(descr (result-ref x "descr")))
-            (cons (string-append "<tr><th><a href=\"localhost:3000/plateset/getps?id=" (number->string (cdr (car x))) "\">" project_sys_name "</a></th><th>" project_name "</th><th>" descr "</th></tr>")
+            (cons (string-append "<tr><th> <input type=\"radio\" id=\"" project_sys_name  "\" name=\"project-id\" value=\"" (number->string (cdr (car x)))   "\"></th><th><a href=\"localhost:3000/plateset/getps?id=" (number->string (cdr (car x))) "\">" project_sys_name "</a></th><th>" project_name "</th><th>" descr "</th></tr>")
 		  prev)))
         '() a))
 
@@ -35,3 +35,45 @@
       (view-render "getall" (the-environment))
   )))
 
+(project-define add
+		(lambda (rc)
+		  (let* ((help-topic "project"))
+		    (view-render "add" (the-environment)))))
+
+
+(project-define addaction
+		(lambda (rc)
+		  (let* ((help-topic "project")
+			 (prj-name (get-from-qstr rc "pname"))
+			 (descr (get-from-qstr rc "descr"))
+			 (insert-string (string-append "select new_project('"  descr "', '" prj-name "', '" sid "')"))
+			 (dummy (dbi-query ciccio insert-string))
+			 )
+		    (redirect-to rc "project/getall")
+  )))
+
+(project-define edit
+		(lambda (rc)
+		  (let* ((help-topic "project")
+			 (ret #f)
+			 (id (get-from-qstr rc "project-id"))
+			 (query-string (string-append "select project_name, descr from project where id=" id ))
+			 (dummy (dbi-query ciccio query-string))
+			 (ret (dbi-get_row ciccio))
+			 (descr (string-append "\"" (result-ref ret "descr") "\""))
+			 (name (string-append "\"" (result-ref ret "project_name") "\""))
+			 )
+		    (view-render "edit" (the-environment)))))
+
+(project-define editaction
+		(lambda (rc)
+		  (let* ((help-topic "project")
+			 (prj-name (get-from-qstr rc "pname"))
+			 (descr (get-from-qstr rc "descr"))
+			 (id (get-from-qstr rc "id"))			 
+			 (update-string (string-append "UPDATE project SET project_name=" prj-name ", descr=" descr "WHERE id=" id))
+			 (dummy (dbi-query ciccio update-string))
+			 )
+;;		    (view-render "edit" (the-environment))
+		    (redirect-to rc "project/getall")
+  )))

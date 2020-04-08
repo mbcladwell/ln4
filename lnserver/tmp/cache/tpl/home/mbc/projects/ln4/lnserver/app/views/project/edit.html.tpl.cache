@@ -1,7 +1,7 @@
-(display "<!-- plate#getid view template of lnserver
+(display "<!-- project#edit view template of lnserver
           Please add your license header here.
           This file is generated automatically by GNU Artanis. -->
-
+  
 ")(display "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">
 <html>
   <head>
@@ -35,13 +35,21 @@ img {
 </div>
 <div class=\"main\">
 ")(display "
-<table><caption><h1>Plates for PS-")(display  id )(display "</h1></caption><tr><th>Plate</th><th>Barcode</th></tr>
-  ")(display  body )(display "
-</table>
 
-<table><caption><h1>Assay Runs for PS-")(display  id )(display "</h1></caption><tr><th>Assay Run</th><th>Name</th><th>Description</th><th>Type</th><th>Layout</th><th>Layout Name</th></tr>
- ")(display  body2 )(display "
+  <h1>Edit Project PRJ-")(display  id )(display "</h1><br><br>
 
-  </table>
+
+  <form action=\"/project/editaction?id=id$value&name=pname$value&description=descr$value\">
+  <label for=\"name\">Project Name:</label>  <input type=\"text\" id=\"pname\" name=\"pname\" value= ")(display  name )(display " ><br>
+  <label for=\"descr\">Description:</label>  <input type=\"text\" id=\"descr\" name=\"descr\" value= ")(display  descr )(display " ><br><br>
+  <input type=\"submit\" value=\"Submit\">
+  <p style=\"visibility: hidden;\">
+ <input type=\"text\" id=\"id\" name=\"id\" value= ")(display  id )(display " >
+   </p>
+</form> 
+
+
+  
 ")(display "</div></html>")(display "
+
 ")

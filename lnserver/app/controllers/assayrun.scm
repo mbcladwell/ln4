@@ -11,3 +11,10 @@
    (view-render "getid" (the-environment))
   ))
 
+(assayrun-define gethlid
+  (lambda (rc)
+  "<h1>This is assayrun#getid</h1><p>Find me in app/views/assayrun/getid.html.tpl</p>"
+  ;; TODO: add controller method `getid'
+  ;; uncomment this line if you want to render view from template
+   (view-render "getid" (the-environment))
+  ))

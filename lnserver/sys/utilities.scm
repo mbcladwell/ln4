@@ -1,6 +1,7 @@
-(define-module (lnserver sys methods)
+(define-module (lnserver sys utilities)
   #:export (get-rand-file-name
 	    ciccio
+	    sid
 	    help-url
 	    prep-plt-rows
 	    prep-ar-rows
@@ -49,6 +50,9 @@
 
 
 (define help-url "www.labsolns.com/software/")
+
+;; session id
+(define sid "1")
 
 (define (get-rand-file-name pre suff)
   (string-append "tmp/" pre "-" (number->string (random 10000000000000000000000)) "." suff))

@@ -3,9 +3,12 @@
           This file is generated automatically by GNU Artanis. -->
   
 <@include header.tpl %>
-<table><caption>All Projects</caption><tr><th>Project</th><th>Name</th><th>Description</th></tr>
+  <a href="localhost:3000/project/add">Add Project</a>
+  <form action="/project/edit?project-name$value">
+<table><caption><h1>All Projects</h1></caption><tr><th><img src="../img/checkmark.png" height="20" width="20"></th><th>Project</th><th>Name</th><th>Description</th></tr>
 <%= body %>
 </table>
-
+ <input type="submit" value="Edit Project">
+</form>
 <@include footer.tpl %>
 
