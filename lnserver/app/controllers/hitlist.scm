@@ -3,6 +3,9 @@
 ;; This file is generated automatically by GNU Artanis.
 (define-artanis-controller hitlist) ; DO NOT REMOVE THIS LINE!!!
 
+(use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys extra))
+
+
 (hitlist-define getid
   (lambda (rc)
   "<h1>This is hitlist#getid</h1><p>Find me in app/views/hitlist/getid.html.tpl</p>"

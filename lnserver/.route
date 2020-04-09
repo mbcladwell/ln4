@@ -9,6 +9,8 @@
   (get "/layout/getall")
   (get "/project/edit")
   (get "/project/editaction")
+  (get "/utilities/setup")
   (get "/project/add")
   (get "/layout/lytbyid")
   (get "/project/getall")
+  (get "/utilities/properties")

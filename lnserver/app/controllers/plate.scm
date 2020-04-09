@@ -3,7 +3,7 @@
 ;; This file is generated automatically by GNU Artanis.
 (define-artanis-controller plate) ; DO NOT REMOVE THIS LINE!!!
 
-(use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys utilities))
+(use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys extra))
 
 (define (prep-plt-rows a)
   (fold (lambda (x prev)

@@ -2,6 +2,7 @@
 ;; Please add your license header here.
 ;; This file is generated automatically by GNU Artanis.
 (define-artanis-controller users) ; DO NOT REMOVE THIS LINE!!!
+(use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys extra))
 
 (users-define get
   (lambda (rc)

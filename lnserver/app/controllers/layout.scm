@@ -5,7 +5,7 @@
 
 (add-to-load-path "/home/mbc/projects/ln4/")
 
-(use-modules (artanis artanis)(artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys methods)
+(use-modules (artanis artanis)(artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys extra)
 	      (ice-9 textual-ports)(ice-9 rdelim))
 
 (define (prep-lyt-rows a)

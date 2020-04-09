@@ -6,7 +6,7 @@
 ;; (use-modules (artanis utils) (ice-9 local-eval) (srfi srfi-1)
    ;;          (artanis irregex)(dbi dbi) (ice-9 textual-ports)(web uri)(ice-9 rdelim)(lnserver sys methods))
 
-(use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys utilities))
+(use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys extra))
 
 (define (prep-project-rows a)
   (fold (lambda (x prev)

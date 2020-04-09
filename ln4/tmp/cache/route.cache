@@ -1,3 +1,0 @@
-;; Do not touch anything!!!
-;; All things here should be automatically handled properly!!!
-(("/project/get" "#<procedure 7f387acc8620 at app/controllers/project.scm:7:2 (rc)>"))
