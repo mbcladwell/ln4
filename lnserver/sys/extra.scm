@@ -3,6 +3,8 @@
 	    ciccio
 	    ln-properties
 	    sid
+	    nopwd-conn
+	    ln-version
 	    properties-filename
 	    prep-plt-rows
 	    prep-ar-rows
@@ -35,7 +37,8 @@
 	    ))
 
 (use-modules (artanis artanis)(artanis utils) (ice-9 local-eval) (srfi srfi-1)
-             (artanis irregex)(dbi dbi) (ice-9 textual-ports)(ice-9 rdelim))
+             (artanis irregex)(dbi dbi) (ice-9 textual-ports)(ice-9 rdelim)
+	     )
 
 ;; artanis config: /etc/artanis/artanis.conf
 ;; pgbouncer -d ./syncd/pgbouncer.ini
@@ -46,30 +49,34 @@
 
 ;; https://github.com/UMCUGenetics/guix-documentation/blob/master/for-bioinformaticians/guix-for-bioinformaticians.md
 
+(define ln-version "0.1.0-042020")
+
 ;; default for elephant-sql
-(define ln-properties '(("sslmode" . #f)
-			("init" . #f)
-			("dbname" . "klohymim")
-			("port" . "5432")
-			("host" . "raja.db.elephantsql.com")
-			("source" . "test")
-			("connuser" . "klohymim")
-			("connpassword" . "hwc3v4_rbkT-1EL2KI-JBaqFq0thCXM_")
-			("user" . "ln_admin")
-			("password" . "welcome")
-			("help-url-prefix" . "http://labsolns.com/software")))
+(define ln-properties '(("sslmode" #f)
+			("init" #f)
+			("dbname" "klohymim")
+			("port" "5432")
+			("host" "raja.db.elephantsql.com")
+			("source" "test")
+			("connuser" "klohymim")
+			("connpassword" "hwc3v4_rbkT-1EL2KI-JBaqFq0thCXM_")
+			("user" "ln_admin")
+			("password" "welcome")
+			("help-url-prefix" "http://labsolns.com/software")))
 
-(define properties-filename (string-append (getcwd) "/../limsnucleus.properties"))
 
-(let* ((props-file properties-filename)
-       (my-port (open-input-file props-file))
-       (ret #f)
-       (holder '())
-       (ret (read-line my-port))
-       (dummy2 (while (not (eof-object? ret))
-		 (set! holder (cons (string-split ret #\=) holder))
-		 (set! ret (read-line my-port)))))
-  (set! ln-properties holder))
+(define properties-filename (string-append (getcwd) "/limsnucleus.properties"))
+
+(if (access? properties-filename R_OK)
+    (let* ((props-file properties-filename)
+	   (my-port (open-input-file props-file))
+	   (ret #f)
+	   (holder '())
+	   (ret (read-line my-port))
+	   (dummy2 (while (not (eof-object? ret))
+		     (set! holder (cons (string-split ret #\=) holder))
+		     (set! ret (read-line my-port)))))
+      (set! ln-properties holder)))
 
 
 ;; (define ciccio (dbi-open "postgresql" "ln_admin:welcome:lndb:socket:192.168.1.11:5432"))
@@ -81,11 +88,21 @@
 				       (car (assoc-ref ln-properties "host")) ":"
 				       (car (assoc-ref ln-properties "port")))))
 
-
-
+;; for display on login page
+(define nopwd-conn  (string-append  
+		     (car (assoc-ref ln-properties "connuser")) ":"
+		     (car (assoc-ref ln-properties "dbname")) ":socket:"
+		     (car (assoc-ref ln-properties "host")) ":"
+		     (car (assoc-ref ln-properties "port"))))
 
 ;; session id
-(define sid "1")
+(define sid "0")
+
+
+
+
+
+(define browse-history '())
 
 (define (get-rand-file-name pre suff)
   (string-append "tmp/" pre "-" (number->string (random 10000000000000000000000)) "." suff))

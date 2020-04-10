@@ -26,3 +26,29 @@
 		    (view-render "setup" (the-environment)))
   ))
 
+(utilities-define login
+		  (lambda (rc)
+		    (let* ((version ln-version)
+			   (connection nopwd-conn)
+			   (help-topic "login")	)		    
+		    (view-render "login" (the-environment)))
+  ))
+
+(utilities-define validate
+		  (lambda (rc) 
+		    (let* ((user (get-from-qstr rc "name"))
+			   (pword (get-from-qstr rc "password"))
+			   (help-topic "login")
+			   (dummy (dbi-query ciccio (string-append "select id, password from lnuser where lnuser_name ='" user "'" )))
+			   (ret (dbi-get_row ciccio)))                      
+			   (if (string=? pword (result-ref ret "password"))
+			       (let* ((userid (get-c1 ret))	   
+				      (dummy (dbi-query ciccio (string-append "SELECT new_session('" userid "')")))
+				       (dummy (dbi-query ciccio  "select id from lnsession order by id DESC"))
+				     )
+				 (view-render "projects/getall" (the-environment)))
+			       (view-render "login" (the-environment))))))
+
+
+(post "/auth" #:auth '(table user "user" "passwd") #:session #t
+      (lambda (rc) ...))
