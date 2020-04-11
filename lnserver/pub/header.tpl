@@ -25,8 +25,10 @@ img {
 <a href="../session/getall">Sessions</a>
 <a href="../users/getall">Users</a>
 
-  <a href="../gethelp?topic=<%= help-topic %> ">HELP</a>
+  <a href="../utilities/help?topic=<%= help-topic %> ">HELP</a>
   <a href="http://labsolns.com/software/toc">TOC</a>
   <a href="mailto:info@labsolns.com">Contact</a>
+
+  SID: <%= sid %>
 </div>
 <div class="main">

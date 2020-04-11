@@ -6,9 +6,7 @@
 	    nopwd-conn
 	    ln-version
 	    properties-filename
-	    prep-plt-rows
 	    prep-ar-rows
-	    prep-lyt-rows
 	    get-plates-for-psid
 	    get-assay-runs-for-psid
 	    get-all-layouts
@@ -62,7 +60,7 @@
 			("connpassword" "hwc3v4_rbkT-1EL2KI-JBaqFq0thCXM_")
 			("user" "ln_admin")
 			("password" "welcome")
-			("help-url-prefix" "http://labsolns.com/software")))
+			("help-url-prefix" "127.0.0.1/software/")))
 
 
 (define properties-filename (string-append (getcwd) "/limsnucleus.properties"))
@@ -133,7 +131,22 @@
 
 ;; (define a '( ("b" . "itemb")("c" . "itemc")("d" . "itemd")("e" . "iteme") ))
 ;; (assoc-ref ln-properties "password" )
-;; 
+;;
+(define (prep-ar-rows a)
+  (fold (lambda (x prev)
+          (let (
+                (assay-run-sys-name (result-ref x "assay_run_sys_name"))
+		(assay-run-name (result-ref x "assay_run_name"))
+		(descr (result-ref x "descr"))
+		(assay-type-name (result-ref x "assay_type_name"))
+		(sys-name (result-ref x "sys_name"))
+		(name (result-ref x "name"))
+		)
+            (cons (string-append "<tr><th><a href=\"/assayrun/gethlforarid?id=" (number->string (cdr (car x))) "\">" assay-run-sys-name "</a></th><th>" assay-run-name "</th><th>" descr "</th><th>" assay-type-name "</th><th>" sys-name "</th><th>" name "</th><tr>")
+		  prev)))
+        '() a))
+
+
 
 
 

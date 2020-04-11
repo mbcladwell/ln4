@@ -6,4 +6,14 @@
   <%= body %>
 </table>
 
+<hr>
+
+<table><caption><h1>Assay Runs for PRJ-<%= id %></h1></caption><tr><th>Assay Run</th><th>Name</th><th>Description</th><th>Type</th><th>Layout</th><th>Layout Name</th></tr>
+<%= assay-runs %>
+  
+</table>
+
+<hr>
+
+
 <@include footer.tpl %>

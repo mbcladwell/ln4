@@ -27,7 +27,7 @@ img {
 <h1>Login to LIMS*Nucleus</h1>
 
 <h3>Version: <%= version %></h3>
-<h3>Connection: <%= connection %></h3>
+<h3>Connection: <%= nopwd-conn %></h3>
 
   <form action="/utilities/validate?name=name$value&password=password$value">
   <label for="name">Name:</label>  <input type="text" id="name" name="name" value="" ><br>

@@ -28,15 +28,27 @@ img {
 <a href=\"../session/getall\">Sessions</a>
 <a href=\"../users/getall\">Users</a>
 
-  <a href=\"../gethelp?topic=")(display  help-topic )(display " \">HELP</a>
+  <a href=\"../utilities/help?topic=")(display  help-topic )(display " \">HELP</a>
   <a href=\"http://labsolns.com/software/toc\">TOC</a>
   <a href=\"mailto:info@labsolns.com\">Contact</a>
+
+  SID: ")(display  sid )(display "
 </div>
 <div class=\"main\">
 ")(display "
 <table><caption><h1>Plate Sets for PRJ-")(display  id )(display "</h1></caption><tr><th>Project</th><th>Name</th><th>Description</th></tr>
   ")(display  body )(display "
 </table>
+
+<hr>
+
+<table><caption><h1>Assay Runs for PRJ-")(display  id )(display "</h1></caption><tr><th>Assay Run</th><th>Name</th><th>Description</th><th>Type</th><th>Layout</th><th>Layout Name</th></tr>
+")(display  assay-runs )(display "
+  
+</table>
+
+<hr>
+
 
 ")(display "</div></html>")(display "
 ")

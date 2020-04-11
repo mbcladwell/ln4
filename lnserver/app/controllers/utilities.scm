@@ -40,15 +40,21 @@
 			   (pword (get-from-qstr rc "password"))
 			   (help-topic "login")
 			   (dummy (dbi-query ciccio (string-append "select id, password from lnuser where lnuser_name ='" user "'" )))
-			   (ret (dbi-get_row ciccio)))                      
-			   (if (string=? pword (result-ref ret "password"))
-			       (let* ((userid (get-c1 ret))	   
-				      (dummy (dbi-query ciccio (string-append "SELECT new_session('" userid "')")))
-				       (dummy (dbi-query ciccio  "select id from lnsession order by id DESC"))
-				     )
-				 (view-render "projects/getall" (the-environment)))
-			       (view-render "login" (the-environment))))))
+			   (ret (dbi-get_row ciccio)))
+                      (if (result-ref ret "password")
+			  (if (string=? pword (result-ref ret "password"))
+			      (let* ((userid (get-c1 ret))	   
+				      (dummy (dbi-query ciccio (string-append "INSERT INTO lnsession(lnuser_id) VALUES('" userid "')")))
+				      (dummy2 (dbi-query ciccio  "select id from lnsession order by id DESC LIMIT 1"))
+				      (sid-candidate (get-c1 (dbi-get_row ciccio)))
+				      )
+				 (begin
+				   (set! sid sid-candidate)
+				 (redirect-to rc "project/getall" )))
+			       (view-render "login" (the-environment)))))))
 
+(utilities-define help
+		  (lambda (rc)
+		    (let* ((topic (get-from-qstr rc "topic")))
+		    (redirect-to rc  (string-append "/software/" topic "/index.html") ))))
 
-(post "/auth" #:auth '(table user "user" "passwd") #:session #t
-      (lambda (rc) ...))

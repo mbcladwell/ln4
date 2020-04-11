@@ -6,20 +6,6 @@
 (use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys extra))
 
 
-(define (prep-ar-rows a)
-  (fold (lambda (x prev)
-          (let (
-                (assay-run-sys-name (result-ref x "assay_run_sys_name"))
-		(assay-run-name (result-ref x "assay_run_name"))
-		(descr (result-ref x "descr"))
-		(assay-type-name (result-ref x "assay_type_name"))
-		(sys-name (result-ref x "sys_name"))
-		(name (result-ref x "name"))
-		)
-            (cons (string-append "<tr><th><a href=\"localhost:3000/gethlforar?id=" (number->string (cdr (car x))) "\">" assay-run-sys-name "</a></th><th>" assay-run-name "</th><th>" descr "</th><th>" assay-type-name "</th><th>" sys-name "</th><th>" name "</th><tr>")
-		  prev)))
-        '() a))
-
 
 
 (define (get-assay-runs-for-psid id)

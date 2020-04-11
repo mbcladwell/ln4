@@ -10,6 +10,7 @@
   (get "/project/edit")
   (get "/project/editaction")
   (get "/utilities/validate")
+  (get "/utilities/help")
   (get "/utilities/setup")
   (get "/utilities/login")
   (get "/project/add")
