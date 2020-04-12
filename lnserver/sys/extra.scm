@@ -7,6 +7,7 @@
 	    ln-version
 	    properties-filename
 	    prep-ar-rows
+	    prep-hl-rows
 	    get-plates-for-psid
 	    get-assay-runs-for-psid
 	    get-all-layouts
@@ -96,17 +97,10 @@
 ;; session id
 (define sid "0")
 
-
-
-
-
 (define browse-history '())
 
 (define (get-rand-file-name pre suff)
   (string-append "tmp/" pre "-" (number->string (random 10000000000000000000000)) "." suff))
-
-
-
 
 ;; artanis result-ref only works with strings
 ;; get a numeric by column and convert to string
@@ -149,14 +143,20 @@
 
 
 
-
-
-
-
-
-
-
-
+(define (prep-hl-rows a)
+  (fold (lambda (x prev)
+          (let ((id (get-c1 x))
+                (assay-run-sys-name (result-ref x "assay_run_sys_name"))
+                (assay-run-name (result-ref x "assay_run_name"))
+		(assay-type-name (result-ref x "assay_type_name"))
+		(hit-list-sys-name (result-ref x "hitlist_sys_name"))
+		(hit-list-name (result-ref x "hitlist_name"))
+		(descr (result-ref x "descr"))
+		(nhits (get-c8 x))
+		)
+	      (cons (string-append "<tr><th><a href=\"/assayrun/gethlforarid?id=" id  "\">" assay-run-sys-name "</a></th><th>" assay-run-name "</th><th>" assay-type-name "</th><th>" hit-list-sys-name "</th><th>" hit-list-name "</th><th>" descr "</th><th>" nhits "</th><tr>")
+		  prev)))
+        '() a))
 
 
 

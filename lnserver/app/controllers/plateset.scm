@@ -28,34 +28,19 @@
 	 (string-concatenate (prep-ar-rows holder))))
 
 
-(define (prep-hl-rows a)
-  (fold (lambda (x prev)
-          (let (
-                (assay-run-sys-name (result-ref x "assay_run_sys_name"))
-		(hit-list-sys-name (result-ref x "hit_list_sys_name"))
-		(hit-list-name (result-ref x "hit_list_name"))
-		(descr (result-ref x "assay_type_name"))
-		(sys-name (result-ref x "sys_name"))
-		(name (result-ref x "name"))
-		)
-            (cons (string-append "<tr><th><a href=\"/assayrun/gethlforarid?id=" (number->string (cdr (car x))) "\">" assay-run-sys-name "</a></th><th>" assay-run-name "</th><th>" descr "</th><th>" assay-type-name "</th><th>" sys-name "</th><th>" name "</th><tr>")
-		  prev)))
-        '() a))
-
-
-
 (define (get-hit-lists-for-prjid id)
   (let* ((ret #f)
 	(holder '())
-	(dummy (dbi-query ciccio (string-append "select assay_run.assay_run_sys_name, hit_list.hitlist_sys_name, hit_list.hitlist_name, hit_list.descr, hit_list.n  FROM assay_run, plate_set, hit_list WHERE hit_list.assay_run_id=assay_run.id  AND assay_run.plate_set_id=plate_set.id AND plate_set.project_id =" id )))
+	(dummy (dbi-query ciccio (string-append "select assay_run.id, assay_run.assay_run_sys_name, assay_run.assay_run_name, assay_type.assay_type_name, hit_list.hitlist_sys_name, hit_list.hitlist_name, hit_list.descr, hit_list.n  FROM assay_run, plate_set, hit_list, assay_type WHERE assay_type.id=assay_run.assay_type_id AND hit_list.assay_run_id=assay_run.id  AND assay_run.plate_set_id=plate_set.id AND plate_set.project_id =" id )))
 	(ret (dbi-get_row ciccio))
 	(dummy2 (while (not (equal? ret #f))     
 		  (set! holder (cons ret holder))		   
 		  (set! ret  (dbi-get_row ciccio)))))
 	 (string-concatenate (prep-hl-rows holder))))
 
+;;    (display holder)))
 
-
+;; (get-hit-lists-for-prjid "1")
 
 (plateset-define getps
 		 (lambda (rc)
@@ -69,7 +54,9 @@
 				    (set! holder (cons ret holder))		   
 				    (set! ret  (dbi-get_row ciccio))))
 			  (body  (string-concatenate  (prep-ps-rows holder)) )
-			  (assay-runs (get-assay-runs-for-prjid id)))      
+			  (assay-runs (get-assay-runs-for-prjid id))
+			  (hit-lists (get-hit-lists-for-prjid id))
+			  )      
 		     (view-render "getps" (the-environment))
 		     )))
 

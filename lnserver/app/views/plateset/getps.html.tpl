@@ -15,5 +15,9 @@
 
 <hr>
 
+<table><caption><h1>Hit Lists for PRJ-<%= id %></h1></caption><tr><th>Assay Run</th><th>AR Name</th><th>Assay Type</th><th>Hit List</th><th>HL Name</th><th>Description</th><th>Number of Hits</th></tr>
+<%= hit-lists %>
+  
+</table>
 
 <@include footer.tpl %>
