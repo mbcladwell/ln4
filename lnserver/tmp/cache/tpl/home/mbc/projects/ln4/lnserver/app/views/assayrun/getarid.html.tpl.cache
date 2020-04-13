@@ -1,4 +1,4 @@
-(display "<!-- plate#getid view template of lnserver
+(display "<!-- assayrun#getforpsid view template of lnserver
           Please add your license header here.
           This file is generated automatically by GNU Artanis. -->
 
@@ -37,13 +37,12 @@ img {
 </div>
 <div class=\"main\">
 ")(display "
-<table><caption><h1>Plates for PS-")(display  id )(display "</h1></caption><tr><th>Plate</th><th>Barcode</th></tr>
+  
+
+  <table><caption><h1>Assay Run AR-")(display  id )(display "</h1></caption><tr><th>Assay Run</th><th>Name</th><th>Description</th><th>Type</th><th>Layout</th><th>Layout Name</th></tr>
+
   ")(display  body )(display "
 </table>
 
-<table><caption><h1>Assay Runs for PS-")(display  id )(display "</h1></caption><tr><th>Assay Run</th><th>Name</th><th>Description</th><th>Type</th><th>Layout</th><th>Layout Name</th></tr>
- ")(display  body2 )(display "
-
-  </table>
 ")(display "</div></html>")(display "
 ")

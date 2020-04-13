@@ -1,5 +1,4 @@
   (get "/sessions/get")
-  (get "/assayrun/gethlid")
   (get "/hitlist/getid")
   (get "/project/addaction")
   (get "/plateset/getps")

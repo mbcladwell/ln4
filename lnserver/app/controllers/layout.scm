@@ -42,7 +42,7 @@
 	(dummy2 (while (not (equal? ret #f))     
 		  (set! holder (cons ret holder))		   
 		  (set! ret  (dbi-get_row ciccio))
-		  (display ret)
+		  
 		  ))
 	(body (string-concatenate (prep-lyt-for-r holder))))
     (string-append table-header body )))
