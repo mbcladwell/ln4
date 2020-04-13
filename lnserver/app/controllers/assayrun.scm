@@ -16,8 +16,9 @@
 		 (bkgrnd-sub (get-c5 x))
 		 (norm (get-c6 x ))
 		 (norm-pos (get-c7 x ))
-		 (p-enhance (get-c8 x )))
-            (cons (string-append  assay-run-id "\t" plate-order "\t" well "\t" response "\t" bkgrnd-sub "\t" norm "\t" norm-pos "\t" p-enhance  "\n")
+		 (p-enhance (get-c8 x ))
+		 (type (result-ref x "name" )))
+            (cons (string-append  assay-run-id "\t" plate-order "\t" well "\t" response "\t" bkgrnd-sub "\t" norm "\t" norm-pos "\t" p-enhance "\t" type "\n")
 		  prev)))
         '() a))
 
@@ -47,8 +48,8 @@
 (define (get-assayrun-table-for-r id data-file-name)
   (let* ((ret #f)
 	 (holder '())
-	 (table-header (string-append "assay.run.id\tplate.order\twell\tresponse\tbkgrnd.sub\tnorm\tnorm.pos\tp.enhance\n"))
-	 (dummy (dbi-query ciccio  (string-append "select assay_run_id, plate_order, well, response, bkgrnd_sub, norm, norm_pos, p_enhance, well_type.name from assay_result, assay_run, well_numbers, plate_layout_name, plate_layout, well_type where plate_layout_name.id-plate_layout.plate_layout_name_id AND plate_layout.well_type_id=well_type.id AND assay_result.assay_run_id=assay_run.id AND assay_run.plate_layout_name_id=plate_layout_name.id AND plate_layout_name.plate_format_id=well_numbers.plate_format AND well_numbers.by_row=assay_result.well AND assay_run_id=" id)))
+	 (table-header (string-append "assay.run.id\tplate.order\twell\tresponse\tbkgrnd.sub\tnorm\tnorm.pos\tp.enhance\ttype\n"))
+	 (dummy (dbi-query ciccio  (string-append "select assay_run_id, plate_order, well, response, bkgrnd_sub, norm, norm_pos, p_enhance, well_type.name from assay_result, assay_run, well_numbers, plate_layout_name, plate_layout, well_type where plate_layout_name.id=plate_layout.plate_layout_name_id AND plate_layout_name.plate_format_id=well_numbers.plate_format AND plate_layout.well_type_id=well_type.id AND plate_layout.well_by_col=assay_result.well AND assay_result.assay_run_id=assay_run.id AND assay_run.plate_layout_name_id=plate_layout_name.id AND well_numbers.by_row=assay_result.well AND assay_run_id=" id)))
 	 (ret (dbi-get_row ciccio))
 	 (dummy2 (while (not (equal? ret #f))     
 		  (set! holder (cons ret holder))		   
@@ -86,6 +87,16 @@
       (put-string p body)
       (force-output p))))
 
+;; response
+;; 0 raw
+;; 1 norm
+;; 2 norm_pos
+;; 3 p_enhanced
+;; Threshold
+;; 1  mean-pos
+;; 2  mean-neg-2-sd
+;; 3  mean-neg-3-sd
+
 
 (assayrun-define getid
 (lambda (rc)
@@ -96,7 +107,9 @@
 	 (infile (get-rand-file-name "ar" "txt"))
 	 (infile2 (get-rand-file-name "ar2" "txt"))
 	 (outfile (get-rand-file-name "ar" "png"))
-	 (outfile (string-append  (get-rand-file-name "lyt" "png")))
+	 
+	 (response "1")
+	 (threshold "3")
 	(dummy (dbi-query ciccio (string-append "select assay_run.id, assay_run.assay_run_sys_name, assay_run.assay_run_name, assay_run.descr, assay_type.assay_type_name, plate_layout_name.sys_name, plate_layout_name.name FROM assay_run, assay_type, plate_layout_name WHERE assay_run.plate_layout_name_id=plate_layout_name.id AND assay_run.assay_type_id=assay_type.id AND assay_run.id =" id )))
 	(ret (dbi-get_row ciccio))
 	(dummy2 (while (not (equal? ret #f))     
@@ -105,7 +118,7 @@
 	(body (string-concatenate (prep-ar-rows holder)))
 	(dummy3 (get-assayrun-table-for-r id infile))
 	(dummy4 (get-assayrun-stats-for-r id infile2))
-	(dummy5 (system (string-append "Rscript --vanilla ../lnserver/rscripts/plot-assayrun.R " infile " " infile2 " " outfile )))
+	(dummy5 (system (string-append "Rscript --vanilla ../lnserver/rscripts/plot-assayrun.R " infile " " infile2 " " outfile " " response  " " threshold )))
 	(outfile2 (string-append "\"../" outfile "\"")))
     (view-render "getarid" (the-environment)))))
 
