@@ -5,7 +5,7 @@
 
 (use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys extra))
 
-(define (prep-ps-rows a)
+(define (prep-ps-for-prj-rows a)
   (fold (lambda (x prev)
           (let (
                 (plate_set_sys_name (result-ref x "plate_set_sys_name"))
@@ -27,6 +27,21 @@
 		  (set! ret  (dbi-get_row ciccio)))))
 	 (string-concatenate (prep-ar-rows holder))))
 
+(define (prep-hl-for-prj-rows a)
+  (fold (lambda (x prev)
+          (let ((id (get-c1 x))
+                (assay-run-sys-name (result-ref x "assay_run_sys_name"))
+                (assay-run-name (result-ref x "assay_run_name"))
+		(assay-type-name (result-ref x "assay_type_name"))
+		(hit-list-sys-name (result-ref x "hitlist_sys_name"))
+		(hit-list-name (result-ref x "hitlist_name"))
+		(descr (result-ref x "descr"))
+		(nhits (get-c8 x))
+		)
+	      (cons (string-append "<tr><th><a href=\"/hitlist/gethlforarid?id=" id  "\">" assay-run-sys-name "</a></th><th>" assay-run-name "</th><th>" assay-type-name "</th><th>" hit-list-sys-name "</th><th>" hit-list-name "</th><th>" descr "</th><th>" nhits "</th><tr>")
+		  prev)))
+        '() a))
+
 
 (define (get-hit-lists-for-prjid id)
   (let* ((ret #f)
@@ -36,7 +51,7 @@
 	(dummy2 (while (not (equal? ret #f))     
 		  (set! holder (cons ret holder))		   
 		  (set! ret  (dbi-get_row ciccio)))))
-	 (string-concatenate (prep-hl-rows holder))))
+	 (string-concatenate (prep-hl-for-prj-rows holder))))
 
 ;;    (display holder)))
 
@@ -53,7 +68,7 @@
 			  (dummy2 (while (not (equal? ret #f))     
 				    (set! holder (cons ret holder))		   
 				    (set! ret  (dbi-get_row ciccio))))
-			  (body  (string-concatenate  (prep-ps-rows holder)) )
+			  (body  (string-concatenate  (prep-ps-for-prj-rows holder)) )
 			  (assay-runs (get-assay-runs-for-prjid id))
 			  (hit-lists (get-hit-lists-for-prjid id))
 			  )      

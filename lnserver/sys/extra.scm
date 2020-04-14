@@ -7,7 +7,6 @@
 	    ln-version
 	    properties-filename
 	    prep-ar-rows
-	    prep-hl-rows
 	    get-plates-for-psid
 	    get-assay-runs-for-psid
 	    get-all-layouts
@@ -136,27 +135,12 @@
 		(sys-name (result-ref x "sys_name"))
 		(name (result-ref x "name"))
 		)
-            (cons (string-append "<tr><th><a href=\"/assayrun/gethlforarid?id=" (number->string (cdr (car x))) "\">" assay-run-sys-name "</a></th><th>" assay-run-name "</th><th>" descr "</th><th>" assay-type-name "</th><th>" sys-name "</th><th>" name "</th><tr>")
+            (cons (string-append "<tr><th><a href=\"/assayrun/getid?id=" (number->string (cdr (car x))) "\">" assay-run-sys-name "</a></th><th>" assay-run-name "</th><th>" descr "</th><th>" assay-type-name "</th><th>" sys-name "</th><th>" name "</th><tr>")
 		  prev)))
         '() a))
 
 
 
-
-(define (prep-hl-rows a)
-  (fold (lambda (x prev)
-          (let ((id (get-c1 x))
-                (assay-run-sys-name (result-ref x "assay_run_sys_name"))
-                (assay-run-name (result-ref x "assay_run_name"))
-		(assay-type-name (result-ref x "assay_type_name"))
-		(hit-list-sys-name (result-ref x "hitlist_sys_name"))
-		(hit-list-name (result-ref x "hitlist_name"))
-		(descr (result-ref x "descr"))
-		(nhits (get-c8 x))
-		)
-	      (cons (string-append "<tr><th><a href=\"/assayrun/gethlforarid?id=" id  "\">" assay-run-sys-name "</a></th><th>" assay-run-name "</th><th>" assay-type-name "</th><th>" hit-list-sys-name "</th><th>" hit-list-name "</th><th>" descr "</th><th>" nhits "</th><tr>")
-		  prev)))
-        '() a))
 
 
 

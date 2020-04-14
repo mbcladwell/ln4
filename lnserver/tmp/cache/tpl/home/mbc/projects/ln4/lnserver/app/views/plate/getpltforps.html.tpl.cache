@@ -40,10 +40,16 @@ img {
 <table><caption><h1>Plates for PS-")(display  id )(display "</h1></caption><tr><th>Plate</th><th>Barcode</th></tr>
   ")(display  body )(display "
 </table>
-
+<hr>
 <table><caption><h1>Assay Runs for PS-")(display  id )(display "</h1></caption><tr><th>Assay Run</th><th>Name</th><th>Description</th><th>Type</th><th>Layout</th><th>Layout Name</th></tr>
  ")(display  body2 )(display "
-
+</table>
+<hr>
+<table><caption><h1>Hit Lists for PS-")(display  id )(display "</h1></caption><tr><th>Assay Run</th><th>Hit List</th><th>Name</th><th>Description</th><th>N</th></tr>
+ ")(display  body3 )(display "
   </table>
+
+
+
 ")(display "</div></html>")(display "
 ")

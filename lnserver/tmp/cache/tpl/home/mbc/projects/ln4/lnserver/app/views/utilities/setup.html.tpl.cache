@@ -28,7 +28,7 @@ img {
 <a href=\"../session/getall\">Sessions</a>
 <a href=\"../users/getall\">Users</a>
 
-  <a href=\"../gethelp?topic=")(display  help-topic )(display " \">HELP</a>
+  <a href=\"../utilities/help?topic=")(display  help-topic )(display " \">HELP</a>
   <a href=\"http://labsolns.com/software/toc\">TOC</a>
   <a href=\"mailto:info@labsolns.com\">Contact</a>
 

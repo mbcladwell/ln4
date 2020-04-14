@@ -6,7 +6,7 @@ rm(list=ls(all=TRUE))
 args = commandArgs(trailingOnly=TRUE)
 # test if there is at least one argument: if not, return an error
 if (length(args) %in% c(0,1,2,3)) {
-  stop("Error: args required: input, three output files and format", call.=FALSE)
+  stop("Error: args required: two inputs, output file, response and threshold", call.=FALSE)
 }
 
 ## getwd()
@@ -24,8 +24,8 @@ infile2 <- args[2]
 response <- args[4]
 threshold <- args[5]
 
-## d <- read.table(file=args[1], sep="\t", header=TRUE)
-## d2 <- read.table(file=args[2], sep="\t", header=TRUE, row.names=NULL)
+ d <- read.table(file=args[1], sep="\t", header=TRUE)
+ d2 <- read.table(file=args[2], sep="\t", header=TRUE, row.names=NULL)
 
 
 ## 0 raw
@@ -62,12 +62,13 @@ data$index <- (nrow(data)):1
 num.hits <- nrow(data[data$response > threshold,])
 
 palette(c("grey", "red", "green", "black"))
-png(outfile,width=450, height=275)
-par(xpd = T, mar = par()$mar + c(0,0,0,6))
+png(outfile,width=900, height=550)
+## par(xpd = T, mar = par()$mar + c(0,0,0,6))
 plot(data$index, data$response,  cex=1, pch=1, col=data$type, ylab="Background Subtracted", xlab="Index")
-text( nrow(data)*0.5, threshold + 0.05*threshold, paste0("hits: ", num.hits))
-text( nrow(data)*0.5, threshold - 0.05*threshold, threshold.text)
-legend(13, 3,  c("unknown","positive","negative","blank"), fill=c("white", "green", "red", "grey"))
+text( nrow(data)*0.1, threshold + 0.05*threshold, paste0("hits: ", num.hits))
+text( nrow(data)*0.1, threshold - 0.05*threshold, threshold.text)
+## par(xpd = T, mar = par()$mar + c(0,0,0,6))
+legend("topright",  c("unknown","positive","negative","blank"), fill=c("white", "green", "red", "grey"))
 abline(h=threshold, lty="dashed")
 
 

@@ -1,7 +1,7 @@
-(display "<!-- project#edit view template of lnserver
+(display "<!-- hitlist#getid view template of lnserver
           Please add your license header here.
           This file is generated automatically by GNU Artanis. -->
-  
+
 ")(display "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">
 <html>
   <head>
@@ -24,6 +24,7 @@ img {
 
   <a href=\"../project/getall\">Projects</a>
   <a href=\"../layout/getall\">Layouts</a>
+  <a href=\"../target/getall\">Targets</a>
   <a href=\"../utilities/setup\">Utilities</a>
 
 <a href=\"../session/getall\">Sessions</a>
@@ -37,21 +38,10 @@ img {
 </div>
 <div class=\"main\">
 ")(display "
-
-  <h1>Edit Project PRJ-")(display  id )(display "</h1><br><br>
-
-
-  <form action=\"/project/editaction?id=id$value&name=pname$value&description=descr$value\">
-  <label for=\"name\">Project Name:</label>  <input type=\"text\" id=\"pname\" name=\"pname\" value= ")(display  name )(display " ><br>
-  <label for=\"descr\">Description:</label>  <input type=\"text\" id=\"descr\" name=\"descr\" value= ")(display  descr )(display " ><br><br>
-  <input type=\"submit\" value=\"Submit\">
-  <p style=\"visibility: hidden;\">
- <input type=\"text\" id=\"id\" name=\"id\" value= ")(display  id )(display " >
-   </p>
-</form> 
+<table><caption><h1>Targets</h1></caption><tr><th>ID</th><th>Project</th><th>Name</th><th>Description</th><th>Accession</th></tr>
+  ")(display  body )(display "
+</table>
 
 
-  
 ")(display "</div></html>")(display "
-
 ")
