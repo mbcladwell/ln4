@@ -38,7 +38,7 @@ img {
 </div>
 <div class=\"main\">
 ")(display "
-<table><caption><h1>Targets</h1></caption><tr><th>ID</th><th>Project</th><th>Name</th><th>Description</th><th>Accession</th></tr>
+<table><caption><h1>Target Layouts</h1></caption><tr><th>ID</th><th>Layout</th><th>Name</th><th>Description</th><th>Replication</th></tr>
   ")(display  body )(display "
 </table>
 

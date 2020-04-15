@@ -38,7 +38,13 @@ img {
 </div>
 <div class=\"main\">
 ")(display "
-<table><caption><h1>Targets</h1></caption><tr><th>ID</th><th>Project</th><th>Name</th><th>Description</th><th>Accession</th></tr>
+  <h3>
+  Targets for Target Layout ")(display  trg-lyt-sys-name )(display "<br><br>
+  Name: ")(display  trg-lyt-name )(display "<br><br>
+  Description: ")(display  trg-lyt-descr )(display "<br><br>
+  Replication: ")(display  reps )(display "<br><br>
+  </h3>
+<table><tr><th>ID</th><th>Project</th><th>Name</th><th>Quadrant</th></tr>
   ")(display  body )(display "
 </table>
 

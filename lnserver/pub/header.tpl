@@ -20,7 +20,7 @@ img {
 
   <a href="../project/getall">Projects</a>
   <a href="../layout/getall">Layouts</a>
-  <a href="../target/getall">Targets</a>
+  <a href="../target/gettrglyt">Targets</a>
   <a href="../utilities/setup">Utilities</a>
 
 <a href="../session/getall">Sessions</a>

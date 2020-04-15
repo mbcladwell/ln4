@@ -1,4 +1,5 @@
   (get "/sessions/get")
+  (get "/target/gettrglyt")
   (get "/project/addaction")
   (get "/plateset/getps")
   (get "/plate/getpltforps")
@@ -16,5 +17,6 @@
   (get "/layout/lytbyid")
   (get "/hitlist/gethlbyid")
   (get "/project/getall")
+  (get "/target/gettrglytbyid")
   (get "/target/getall")
   (get "/utilities/properties")
