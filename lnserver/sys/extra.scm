@@ -7,14 +7,8 @@
 	    ln-version
 	    properties-filename
 	    prep-ar-rows
-	    get-plates-for-psid
-	    get-assay-runs-for-psid
-	    get-all-layouts
-	    get-layout-for-id
-	    prep-lyt-for-r
-	    get-layout-table-for-r
-	    get-data-for-layout
-	    get-format-for-layout-id
+	    process-pg-row-element
+	    process-list-of-rows
 	    get-c1
 	    get-c2
 	    get-c3
@@ -64,6 +58,9 @@
 
 
 (define properties-filename (string-append (getcwd) "/limsnucleus.properties"))
+
+;; (define properties-filename (string-append (getcwd) "/home/projects/ln4/lnserver/limsnucleus.properties"))
+
 
 (if (access? properties-filename R_OK)
     (let* ((props-file properties-filename)
@@ -125,6 +122,15 @@
 ;; (define a '( ("b" . "itemb")("c" . "itemc")("d" . "itemd")("e" . "iteme") ))
 ;; (assoc-ref ln-properties "password" )
 ;;
+
+;;goal:
+;;"select bulk_target_upload('{{"1","DYSF","8291", ""},
+;;                             {"2", "DsSF",  "8292", ""},
+;;                             {"3", "DYdF",  "8293", ""},
+;;                             {"4", "DYSt",  ""}}')" 
+
+
+
 (define (prep-ar-rows a)
   (fold (lambda (x prev)
           (let (
@@ -139,13 +145,18 @@
 		  prev)))
         '() a))
 
+;; these two methods help create a Postgres array
+;; for Postgres
+(define (process-pg-row-element x)
+             (string-append  "\"" x "\", ") )
 
-
-
-
-
-
-
-
+	    
+;; for Postgres
+(define (process-list-of-rows x)
+  (let* ((step1 (string-concatenate (map process-pg-row-element x) ))
+	 (step2  (xsubstring step1 0 (- (string-length step1) 2))) ;;trim the final comma
+	 )
+   (string-append "{" step2 "},")
+))
 
 

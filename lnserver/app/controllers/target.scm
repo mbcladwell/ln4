@@ -3,7 +3,8 @@
 ;; This file is generated automatically by GNU Artanis.
 (define-artanis-controller target) ; DO NOT REMOVE THIS LINE!!!
 
-(use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys extra))
+(use-modules (artanis utils)(artanis irregex)(srfi srfi-1)(dbi dbi) (lnserver sys extra)
+	     (ice-9 textual-ports)(ice-9 rdelim)(lnserver sys extra))
 
 
 (define (prep-trg-rows a)
@@ -91,7 +92,7 @@
 				 (if (string? prj-id)
 				     (string-append "PRJ-" prj-id)
 				     '(""))
-				 "</th><th>" trg-name "</th><th>" quad "</th><th>" trg-desc "</th></tr>")
+				 "</th><th>" trg-name "</th><th>" quad "</th><th>" trg-descr "</th></tr>")
 		  prev)))
         '() a))
 
@@ -116,3 +117,39 @@
 				   (set! ret  (dbi-get_row ciccio))))
 			 (body  (string-concatenate  (prep-trglytbyid-rows holder)) ))
 		    (view-render "gettrglytbyid" (the-environment)))))
+
+(target-define add
+		(lambda (rc)
+		  (let* ((ret #f)
+			 (holder '())
+			 (help-topic "target")
+			 )
+		    (view-render "add" (the-environment)))))
+
+
+
+(define (load-bulk-target-file f)
+  (if (access? f R_OK)
+      (let* (
+	     (my-port (open-input-file f))
+	     (ret #f)
+	     (holder '())
+	     (message "")
+	     (ret (read-line my-port))
+	     (header (string-split ret #\tab))
+	     (dummy (if (and (string=? (car header) "project")
+			     (string=? (cadr header) "target")
+			     (string=? (caddr header) "description")
+			     (string=? (cadddr header) "accession")) 			
+			  (let* (
+				 (ret (read-line my-port))
+				 (dummy2 (while (not (eof-object? ret))
+					   (set! holder (cons (string-split ret #\tab) holder))
+					   (set! ret (read-line my-port))))
+				 (holder2 (string-concatenate (map process-list-of-rows holder)))
+				 (sel-str (string-append "select bulk_target_upload('{" (xsubstring holder2 0 (- (string-length holder2) 1))  "}')" )) ;;trim the final comma
+				 (dummy3 (dbi-query ciccio sel-str)))
+			    (set! message (string-append "import complete:  " sel-str)))			  
+		    (set! message "Invalid bulk target import file format"))))
+	message)))	 
+		   

@@ -15,6 +15,7 @@
   (get "/utilities/login")
   (get "/project/add")
   (get "/layout/lytbyid")
+  (get "/target/add")
   (get "/hitlist/gethlbyid")
   (get "/project/getall")
   (get "/target/gettrglytbyid")
