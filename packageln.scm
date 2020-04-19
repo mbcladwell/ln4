@@ -27,3 +27,36 @@
    "LIMS*Nucleus with web interface.")
   (home-page "http://labsolns.com/software/")
   (license gpl3+))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
