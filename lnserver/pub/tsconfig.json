@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "./pub/dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es6",
+        "jsx": "react"
+    },
+    "include": [
+        "./pub/js/ts/**/*"
+    ],
+    "exclude": ["node_modules"]
+}

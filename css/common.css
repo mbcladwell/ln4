@@ -260,6 +260,8 @@ label {
     display: block;
     font-weight: bold;
     padding: 0 0 0.2em 0;
+    margin-right: 15px;
+  line-height: 32px;
 }
 
 input[type="submit"] {
@@ -268,6 +270,24 @@ input[type="submit"] {
     margin-left: 80px;
     padding: 5px;
 }
+
+input{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+
+  border: 2px solid #999;
+  transition: 0.2s all linear;
+  margin-right: 5px;
+
+  position: relative;
+  top: 4px;
+}
+
 
 /* general classes (.clear, .center, .right, .left, etc.) */
 

@@ -38,7 +38,7 @@ img {
 </div>
 <div class=\"main\">
 ")(display "
-  <a href=\"target/add\">Add a target</a>
+  <a href=\"add\">Add a target</a>
   <h3>
   Targets for Target Layout ")(display  trg-lyt-sys-name )(display "</h3>
   <h5>
