@@ -33,3 +33,9 @@ img {
   SID: <%= sid %>
 </div>
 <div class="main">
+  <!-- Dependencies -->
+    <script src="../pub/node_modules/react/umd/react.development.js"></script>
+    <script src="../pub/node_modules/react-dom/umd/react-dom.development.js"></script>
+
+    <!-- Main -->
+    <script src="../pub/dist/bundle.js"></script>

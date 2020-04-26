@@ -13,12 +13,17 @@
 <fieldset>
     <legend>Please select level of replication:</legend>
     <div>
-       <input type="radio" id="singlicates" name="replication" value="1" checked><label for="singlicates">Singlicates</label>
- <input type="radio" id="duplicates" name="replication" value="2">  <label for="duplicates">Duplicates</label> 
- <input type="radio" id="quadruplicates" name="replication" value="4"
-         ><label for="quadruplicates">Quadruplicates</label> 
-  </div>
+       render() {
+    return (
+<RadioGroup name="replication" selectedValue={this.state.selectedValue} onChange={this.handleChange}>
+<label>  <Radio value="singlicates" />Singlicates</label>
+<label>  <Radio value="duplicates" />Duplicates</label>
+<label>  <Radio value="quadruplicates" />Quadruplicates</label>
+</RadioGroup>
+
+    </div>
 </fieldset>
+
 
 
 
