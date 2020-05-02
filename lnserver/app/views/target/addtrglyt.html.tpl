@@ -7,27 +7,20 @@
   <h3>Add Target Layout to PRJ- </h3>
 
 
-    
-  <div>
+ <div>   
    <form action="/target/addlayout?name=tname$value&description=descr$value">
   <label for="name">Target Name:</label>  <input type="text" id="tname" name="tname" value=""><br><br>
   <label for="descr">Description:</label>  <input type="text" id="descr" name="descr" value=""><br><br>
 
     <legend>Please select level of replication:</legend>
-<script src="../app/views/target/repbuttons.js"></script>
 
-
-
-    <div id="content"></div>
-
-<!--   
+ <div id="content"></div>
+ 
+    
   <input type="submit" value="Submit">
-
--->
 
   </form>
  </div>
-
  
 
 <@include footer.tpl %>

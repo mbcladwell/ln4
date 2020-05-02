@@ -37,39 +37,36 @@ img {
   SID: ")(display  sid )(display "
 </div>
 <div class=\"main\">
+")(display "
+  
+  <h3>Add Target Layout to PRJ- </h3>
+
+
+ <div>   
+   <form action=\"/target/addlayout?name=tname$value&description=descr$value\">
+  <label for=\"name\">Target Name:</label>  <input type=\"text\" id=\"tname\" name=\"tname\" value=\"\"><br><br>
+  <label for=\"descr\">Description:</label>  <input type=\"text\" id=\"descr\" name=\"descr\" value=\"\"><br><br>
+
+    <legend>Please select level of replication:</legend>
+
+ <div id=\"content\"></div>
+ 
+    
+  <input type=\"submit\" value=\"Submit\">
+
+  </form>
+ </div>
+ 
+
+")(display "</div>
+
   <!-- Dependencies -->
     <script src=\"../pub/node_modules/react/umd/react.development.js\"></script>
     <script src=\"../pub/node_modules/react-dom/umd/react-dom.development.js\"></script>
 
     <!-- Main -->
     <script src=\"../pub/dist/bundle.js\"></script>
-")(display "
-  
-  <h3>Add Target Layout to PRJ- </h3>
 
 
-    
-  <div>
-   <form action=\"/target/addlayout?name=tname$value&description=descr$value\">
-  <label for=\"name\">Target Name:</label>  <input type=\"text\" id=\"tname\" name=\"tname\" value=\"\"><br><br>
-  <label for=\"descr\">Description:</label>  <input type=\"text\" id=\"descr\" name=\"descr\" value=\"\"><br><br>
-
-    <legend>Please select level of replication:</legend>
-<script src=\"../app/views/target/repbuttons.js\"></script>
-
-
-
-    <div id=\"content\"></div>
-
-<!--   
-  <input type=\"submit\" value=\"Submit\">
-
--->
-
-  </form>
- </div>
-
- 
-
-")(display "</div></html>")(display "
+</html>")(display "
 ")

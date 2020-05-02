@@ -1,7 +1,7 @@
 module.exports = {
     mode: 'production',
     watch: true,
-    entry: "./js/ts/index.tsx",
+    entry: "./js/index.js",
     output: {
         filename: "bundle.js",
         path: __dirname + "/dist"
@@ -34,3 +34,26 @@ module.exports = {
         "react-dom": "ReactDOM"
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

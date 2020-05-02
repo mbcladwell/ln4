@@ -12,3 +12,8 @@
     ],
     "exclude": ["node_modules"]
 }
+
+// https://www.typescriptlang.org/docs/handbook/migrating-from-javascript.html
+// https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+
+// https://ibaslogic.com/blog/react-tutorial-for-beginners/
