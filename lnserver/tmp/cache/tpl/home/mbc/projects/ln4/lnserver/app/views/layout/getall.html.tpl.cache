@@ -23,6 +23,7 @@ img {
 
   <a href=\"../project/getall\">Projects</a>
   <a href=\"../layout/getall\">Layouts</a>
+  <a href=\"../target/gettrglyt\">Targets</a>
   <a href=\"../utilities/setup\">Utilities</a>
 
 <a href=\"../session/getall\">Sessions</a>
@@ -40,5 +41,13 @@ img {
   ")(display  body )(display "
 </table>
 
-")(display "</div></html>")(display "
+")(display "</div>
+
+  <!-- Dependencies -->
+    <script src=\"../pub/node_modules/react/umd/react.development.js\"></script>
+    <script src=\"../pub/node_modules/react-dom/umd/react-dom.development.js\"></script>
+
+
+
+</html>")(display "
 ")

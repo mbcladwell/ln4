@@ -37,17 +37,19 @@ img {
   SID: ")(display  sid )(display "
 </div>
 <div class=\"main\">
-  <!-- Dependencies -->
-    <script src=\"./node_modules/react/umd/react.development.js\"></script>
-    <script src=\"./node_modules/react-dom/umd/react-dom.development.js\"></script>
-
-    <!-- Main -->
-    <script src=\"./dist/bundle.js\"></script>
 ")(display "
 <table><caption><h1>Target Layouts</h1></caption><tr><th>ID</th><th>Layout</th><th>Name</th><th>Description</th><th>Replication</th></tr>
   ")(display  body )(display "
 </table>
 
 
-")(display "</div></html>")(display "
+")(display "</div>
+
+  <!-- Dependencies -->
+    <script src=\"../pub/node_modules/react/umd/react.development.js\"></script>
+    <script src=\"../pub/node_modules/react-dom/umd/react-dom.development.js\"></script>
+
+
+
+</html>")(display "
 ")

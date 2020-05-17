@@ -2,3 +2,73 @@ A simple GNU Guile project template.
 
 This is the first version of the web interface derived from the ../ln directory
 Coding began February 2020
+
+I am using artanis as the web server, with a Guile environment
+I started on React as an interface in: ./syncd/prog/react/
+Working primarily on the AddTrgLyt page
+Note that I incorporated R for graphing purposes
+Plan was to package in Docker
+
+Note that the ln directory has since purged Clojure
+
+
+Stopped on 5/17/2020 and will switch to trying MySQL again with Java interface.
+
+I will copy ln to ln5 for further MySQL development
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
